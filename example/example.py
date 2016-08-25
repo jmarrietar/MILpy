@@ -7,6 +7,8 @@ Created on Sat Aug 20 23:17:10 2016
 
 import os
 os.chdir('/Users/josemiguelarrieta/Documents/MILpy')
+from data import load_data
+from Algorithms import MILBoost
 from sklearn import cross_validation
 import numpy as np
 from sklearn import metrics
@@ -15,17 +17,35 @@ from Algorithms import CKNN
 from Algorithms import simpleMIL
 from Algorithms import EMDD
 from Algorithms import MILES
-from data import load_data
+
 
 #Load Data 
 bags,labels,X = load_data('musk1_scaled')  #Musk1 Escalado
+bags,labels,X = load_data('musk1_original')  #Musk1 Original
 bags,labels,X = load_data('data_gauss')  #Gaussian data
+
 #AGREGAR MUSK DATA!!
 
 seed = 66
 #seed = 70
 #Split Data
+seed= 90
 train_bags, test_bags, train_labels, test_labels = cross_validation.train_test_split(bags, labels, test_size=0.1, random_state=seed)
+
+
+
+
+                            ##########   
+                            #MILBoost#
+                            ##########
+#Nota Importante:  Solo Funciona Con musk1 original. 
+MILBoost = MILBoost() 
+MILBoost.fit(train_bags, train_labels)
+out = MILBoost.predict(test_bags)
+fpr, tpr, thresholds = metrics.roc_curve(test_labels, out, pos_label=1.)
+metrics.auc(fpr, tpr)
+
+
 
                             ###########   
                             #simpleMIL#

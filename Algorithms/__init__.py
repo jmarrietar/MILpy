@@ -11,5 +11,6 @@ from CKNN import CKNN
 from maxDD import maxDD
 from EMDD import EMDD
 from MILES import MILES
+from MILBoost import MILBoost
 
 

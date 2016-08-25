@@ -18,6 +18,10 @@ def load_data(data):
         filename_bag = 'data/gauss_data/bag_g.mat'
         filename_labels = 'data/gauss_data/bagI_gauss.mat'
         X_g = loadmat('data/gauss_data/X_g.mat')
+    elif data == 'musk1_original':
+        filename_bag = 'data/musk1_unscaled/Bag2_musk_original.mat'
+        filename_labels = 'data/musk1_unscaled/bagI_musk1_original.mat'
+        X_g = loadmat('data/musk1_unscaled/X_musk_original.mat')
     else:
         return 0,0,0
         
