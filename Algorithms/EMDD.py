@@ -11,7 +11,9 @@ DESCRIPTION
  initialisation. 
 
 
-@author: josemiguelarrieta
+Copyright: A.R. Jose, jmarrietar@unal.edu.co
+Departamento de Ciencias de la Computación y de la Decisión
+Universidad Nacional de Colombia - Sede Medellín
 """
 import numpy as np
 from numpy import inf

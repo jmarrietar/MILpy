@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Aug 20 20:57:44 2016
+Description: 
 
-@author: josemiguelarrieta
+
+
+Copyright: A.R. Jose, jmarrietar@unal.edu.co
+Departamento de Ciencias de la Computación y de la Decisión
+Universidad Nacional de Colombia - Sede Medellín
 """
 
 import numpy as np

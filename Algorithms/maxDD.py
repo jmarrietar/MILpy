@@ -10,7 +10,9 @@ DESCRIPTION
  optimization is run for EPOCHS epochs, and it is stopped when the
  likelihood changes less than TOL.
 
-@author: josemiguelarrieta
+Copyright: A.R. Jose, jmarrietar@unal.edu.co
+Departamento de Ciencias de la Computación y de la Decisión
+Universidad Nacional de Colombia - Sede Medellín
 """
 from bagprob import bagprob
 from maxdd2 import maxdd

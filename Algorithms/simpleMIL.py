@@ -2,7 +2,9 @@
 """
 Implements Simple Multiple Instance Learning 
 
-@author: josemiguelarrieta
+Copyright: A.R. Jose, jmarrietar@unal.edu.co
+Departamento de Ciencias de la Computación y de la Decisión
+Universidad Nacional de Colombia - Sede Medellín
 """
 
 

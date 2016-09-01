@@ -1,17 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-Implements Expectation Maximization Maximum Diverse Density
+Implements MILES
 
-DESCRIPTION
- Expectation Maximization Maximum Diverse Density This implementation is
- completely inspired by MATLAB Udelft MIL toolbox by D.M.J. Tax 
- Use the Expectation Maximization version of the Maximum Diverse
- Density. It is an iterative EM algorithm, requiring a sensible
- initialisation. 
-
-
-@author: josemiguelarrieta
+Copyright: A.R. Jose, jmarrietar@unal.edu.co
+Departamento de Ciencias de la Computación y de la Decisión
+Universidad Nacional de Colombia - Sede Medellín
 """
 
 import numpy as np
@@ -49,10 +43,6 @@ class MILES(object):
         ########
         #MAPING#
         ######## 
-        #El Kernel esta definido
-        #Sera polinomial de p=1 que es lo mismo que lineal. 
-        #ktype='p'
-        #P=1
         nrbags=len(bagT)
         
         m = np.zeros((len(bagT),len(Xtrain)))
@@ -96,7 +86,6 @@ class MILES(object):
             print 'All weights are zero.'
             I = 1; 
         
-        #HERE IS WHAT I NEED FOR MY CLASSIFIER. 
         w = v[I]
         self._w = np.array([w])
         self._w0 = u[-1]

@@ -2,7 +2,9 @@
 """
 Created on Mon Aug 22 21:38:30 2016
 
-@author: josemiguelarrieta
+Copyright: A.R. Jose, jmarrietar@unal.edu.co
+Departamento de Ciencias de la Computación y de la Decisión
+Universidad Nacional de Colombia - Sede Medellín
 """
 
 import numpy as np
