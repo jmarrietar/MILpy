@@ -23,7 +23,11 @@ def load_data(data):
         filename_labels = 'data/musk1_unscaled/bagI_musk1_original.mat'
         X_g = loadmat('data/musk1_unscaled/X_musk_original.mat')
     else:
-        return 0,0,0
+        file = data
+        filename_bag = 'data/'+file+'/Bag2.mat'
+        filename_labels = 'data/'+file+'/bagI.mat'
+        X_g = loadmat('data/'+file+'/X.mat')
+    
         
     bag_g = loadmat(filename_bag)
     labels = loadmat(filename_labels)

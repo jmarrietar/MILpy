@@ -21,11 +21,11 @@ from Algorithms import MILES
 
 
 #Load Data 
-bags,labels,X = load_data('musk1_scaled')  #Musk1 Escalado
+#bags,labels,X = load_data('musk1_scaled')  #Musk1 Escalado
 #bags,labels,X = load_data('musk1_original')  #Musk1 Original
 #bags,labels,X = load_data('data_gauss')  #Gaussian data
+bags,labels,X = load_data('fox_original')  #Musk1 Original
 
-#AGREGAR MUSK DATA!!
 
 seed = 66
 #seed = 70
