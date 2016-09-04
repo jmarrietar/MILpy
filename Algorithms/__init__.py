@@ -12,5 +12,7 @@ from maxDD import maxDD
 from EMDD import EMDD
 from MILES import MILES
 from MILBoost import MILBoost
+from MIL2SIL import MIL2SIL
+from bow import bow
 
 

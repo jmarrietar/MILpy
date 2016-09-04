@@ -18,13 +18,13 @@ from Algorithms import maxDD
 from Algorithms import CKNN
 from Algorithms import EMDD
 from Algorithms import MILES
-
+from Algorithms import bow
 
 #Load Data 
-#bags,labels,X = load_data('musk1_scaled')  #Musk1 Escalado
+bags,labels,X = load_data('musk1_scaled')  #Musk1 Escalado
 #bags,labels,X = load_data('musk1_original')  #Musk1 Original
 #bags,labels,X = load_data('data_gauss')  #Gaussian data
-bags,labels,X = load_data('fox_original')  #Musk1 Original
+#bags,labels,X = load_data('fox_original')  #Musk1 Original
 
 
 seed = 66
@@ -33,6 +33,19 @@ seed = 66
 #seed= 90
 train_bags, test_bags, train_labels, test_labels = cross_validation.train_test_split(bags, labels, test_size=0.1, random_state=seed)
 
+
+
+
+                            ################
+                            #Bags Of Words #
+                            ################
+bow = bow() 
+bow.fit(train_bags, train_labels,k=100,covar_type = 'diag',n_iter = 20)
+predictions = bow.predict(test_bags)
+accuracie = np.average(test_labels.T == np.sign(predictions))
+print '\n Accuracy: %.2f%%' % (100 * accuracie)
+fpr, tpr, thresholds = metrics.roc_curve(test_labels, predictions, pos_label=1.)
+metrics.auc(fpr, tpr)
 
 
 
