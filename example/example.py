@@ -49,6 +49,9 @@ metrics.auc(fpr, tpr)
 
 
 
+bow = bow()
+scores = cross_validation.cross_val_score(bow, bags, labels, cv=5,scoring='accuracy')
+
 
 
                             #####################
