@@ -14,8 +14,8 @@ Copyright: A.R. Jose, jmarrietar@unal.edu.co
 Departamento de Ciencias de la Computación y de la Decisión
 Universidad Nacional de Colombia - Sede Medellín
 """
-from bagprob import bagprob
-from maxdd2 import maxdd
+from MILpy.functions.bagprob import bagprob
+from MILpy.functions.maxdd2 import maxdd
 import numpy as np
 from numpy import inf
 from sklearn.linear_model import LogisticRegression
@@ -23,7 +23,7 @@ from sklearn.linear_model import LogisticRegression
 class maxDD(object):
     
     
-    def _init_(self):
+    def __init__(self):
         self._spoints = None
         self._epochs = None
         self._frac = None

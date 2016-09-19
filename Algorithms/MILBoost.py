@@ -11,15 +11,14 @@ Universidad Nacional de Colombia - Sede Medellín
 """
 
 import numpy as np
-from scipy.optimize import fmin_bfgs   
-from noisyORlossWeights import noisyORlossWeights
-from noisyORlossAlphas import noisyORlossAlphas
-from traindecstump import traindecstump
-
+from scipy.optimize import fmin_bfgs
+from MILpy.functions.noisyORlossWeights import noisyORlossWeights
+from MILpy.functions.noisyORlossAlphas import noisyORlossAlphas
+from MILpy.functions.traindecstump import traindecstump
 
 class MILBoost(object):
     
-    def _init_(self):
+    def __init__(self):
         self._alpha = None
         self._H = None 
         self._T = None

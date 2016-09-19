@@ -7,14 +7,13 @@ Departamento de Ciencias de la Computación y de la Decisión
 Universidad Nacional de Colombia - Sede Medellín
 """
 
-import os
-os.chdir('/Users/josemiguelarrieta/Documents/MILpy')
+import sys,os
 import numpy as np
 from sklearn.mixture import GMM
 from sklearn.linear_model import LogisticRegression
-from Algorithms import MIL2SIL
+from MILpy.functions.MIL2SIL import MIL2SIL
 
-class bow(object):
+class BOW(object):
     
     
     def __init__(self):
@@ -53,7 +52,7 @@ class bow(object):
         for i in range (0,n):
             sil_bag, _= MIL2SIL(test_bags[i],[0])
             out_test = self._gauss_mix_model.predict_proba(sil_bag)
-            out_test= np.mean(out_test,axis=0)
+            out_test = np.mean(out_test,axis=0)
             bags_out_test.append(out_test.reshape(1,len(out_test)))
 
         bags_out_test = np.vstack(bags_out_test)

@@ -14,7 +14,7 @@ from sklearn import svm
 class simpleMIL(object):
     
     
-    def _init_(self):
+    def __init__(self):
         self._model = None
         self._type = None
 

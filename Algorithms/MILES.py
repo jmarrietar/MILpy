@@ -12,12 +12,12 @@ import numpy as np
 from scipy.sparse import identity
 from scipy.optimize import linprog
 from scipy.stats import logistic
-from dd_kernel import dd_kernel 
-from MIL2SIL import MIL2SIL
+from MILpy.functions.dd_kernel import dd_kernel
+from MILpy.functions.MIL2SIL import MIL2SIL
 
 class MILES(object):
     
-    def _init_(self):
+    def __init__(self):
         self._w = None
         self._w0 = None
         self._sva = None
