@@ -10,13 +10,16 @@ The toolbox contains algorithms to train and evaluate multiple instance learning
 
 Stage of Development:
 ---------------------
-Pre-Alpha
-
+->Pre-Alpha
+->Development still on process
 
 Disclaimer
 --------
 This Python Toolbox implementation is inspired by { [MIL] A Matlab Toolbox for Multiple Instance Learning’ Tax, D.M.J., Cheplygina, V. } with some changes and tweaks. 
 
+Data from http://www.miproblems.org/datasets/
+
+Cannot guarantee any support for this software.
 
 License
 --------

@@ -13,6 +13,7 @@ import numpy as np
 from sklearn import cross_validation
 from sklearn import metrics
 from data import load_data
+from MILpy.functions.mil_cross_val import mil_cross_val
 
 #Import Algorithms 
 from MILpy.Algorithms.simpleMIL import simpleMIL
@@ -24,11 +25,23 @@ from MILpy.Algorithms.MILES import MILES
 from MILpy.Algorithms.BOW import BOW
 
 #Load Data 
-bags,labels,X = load_data('musk1_scaled')  #Musk1 Escalado
+#bags,labels,X = load_data('musk1_scaled')  #Musk1 Escalado
 #bags,labels,X = load_data('musk1_original')  #Musk1 Original
-#bags,labels,X = load_data('data_gauss')  #Gaussian data
+bags,labels,X = load_data('data_gauss')  #Gaussian data
 #bags,labels,X = load_data('fox_original')  #Musk1 Original
 
+
+## DRAFT 
+bow_classifier = BOW() 
+
+cknn_classifier = CKNN()   #Aqui tienes un problema con los Que resiven parametros
+
+maxdd_classifier = maxDD() 
+
+#En este me funciono maxDD porque no tiene problem con parametros 
+mil_cross_val(bags=bags,labels=labels, model=maxdd_classifier, folds=10)
+
+##
 
 seed = 66
 #seed = 70
@@ -49,6 +62,9 @@ accuracie = np.average(test_labels.T == np.sign(predictions))
 print '\n Accuracy: %.2f%%' % (100 * accuracie)
 fpr, tpr, thresholds = metrics.roc_curve(test_labels, predictions, pos_label=1.)
 metrics.auc(fpr, tpr)
+
+
+
 
 #scores = cross_validation.cross_val_score(bow, bags, labels, cv=5,scoring='accuracy')
 
