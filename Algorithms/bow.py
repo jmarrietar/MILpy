@@ -20,7 +20,7 @@ class BOW(object):
         self._logistic = None
         self._gauss_mix_model = None
     
-    def fit(self,train_bags,train_labels,k,covar_type = 'diag',n_iter = 20):
+    def fit(self,train_bags,train_labels,**kwargs):
         """
         @param train_bags : a sequence of n bags; each bag is an m-by-k array-like
                       object containing m instances with k features
@@ -30,6 +30,9 @@ class BOW(object):
                  
         @param covar_type  : Type of covariance matrix (default = 'diag')        
         """
+        k = kwargs['k']
+        covar_type = kwargs['covar_type']
+        n_iter = kwargs['n_iter']
         X, Y = MIL2SIL(train_bags,train_labels)
         self._gauss_mix_model= GMM(n_components=k,covariance_type=covar_type, init_params='wc', n_iter=n_iter)
         self._gauss_mix_model.fit(X)

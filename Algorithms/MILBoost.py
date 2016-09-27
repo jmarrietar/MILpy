@@ -23,7 +23,7 @@ class MILBoost(object):
         self._H = None 
         self._T = None
         
-    def fit(self,train_bags,train_labels, errtol = 1e-15,T=100):
+    def fit(self,train_bags,train_labels, errtol = 1e-15,T=100,**kwargs):
         """
         @param train_bags : a sequence of n bags; each bag is an m-by-k array-like
         object containing m instances with k features

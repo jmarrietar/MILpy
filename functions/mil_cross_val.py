@@ -14,6 +14,13 @@ NOTE: AUX is missing Here.
 """
 
 def mil_cross_val(bags,labels,model,folds):
+    
+    """
+    NOTA: FALTAAAA
+    Aqui lo que me falta es una parte de parametros que haga que le pueda meter parametros con un json
+    desempacar con el ***kwargs, y si parameters no xiste o es vacio entonces no pasarle nada
+    listo el model.fit
+    """
 
     skf = StratifiedKFold(labels.reshape(len(labels)), n_folds=folds)
     results_accuracie = []
