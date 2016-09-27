@@ -41,8 +41,16 @@ maxdd_classifier = maxDD()
 #En este me funciono maxDD porque no tiene problem con parametros 
 mil_cross_val(bags=bags,labels=labels, model=maxdd_classifier, folds=10)
 
-##
+parameters = 
 
+tel = {'jack': 4098, 'sape': 4139}
+
+parameters = {'k':100,'covar_type':'diag','n_iter':20}
+
+
+
+
+##
 seed = 66
 #seed = 70
 #Split Data
@@ -85,7 +93,7 @@ metrics.auc(fpr, tpr)
                             #simpleMIL [extreme]#
                             #####################
 SMILe = simpleMIL() 
-SMILe .fit(train_bags, train_labels, type='extreme')
+SMILe.fit(train_bags, train_labels, type='extreme')
 predictions = SMILe .predict(test_bags)
 accuracie = np.average(test_labels.T == np.sign(predictions))
 print '\n Accuracy: %.2f%%' % (100 * accuracie)
