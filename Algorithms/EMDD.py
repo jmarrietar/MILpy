@@ -132,7 +132,7 @@ class EMDD(object):
             outT[i],_ = log_DD(self._maxConcept,[test_bags[i]],[1])
         outT = outT.reshape(len(outT),1)
         predicted = self._model.predict(outT)
-        return outT, predicted
+        return predicted, outT
     
     
     

@@ -13,15 +13,8 @@ import numpy as np
 NOTE: AUX is missing Here. 
 """
 
-def mil_cross_val(bags,labels,model,folds):
+def mil_cross_val(bags,labels,model,folds,parameters={}):
     
-    """
-    NOTA: FALTAAAA
-    Aqui lo que me falta es una parte de parametros que haga que le pueda meter parametros con un json
-    desempacar con el ***kwargs, y si parameters no xiste o es vacio entonces no pasarle nada
-    listo el model.fit
-    """
-
     skf = StratifiedKFold(labels.reshape(len(labels)), n_folds=folds)
     results_accuracie = []
     results_auc = []
@@ -31,9 +24,15 @@ def mil_cross_val(bags,labels,model,folds):
         Y_train = labels[train_index]
         X_test  = [bags[i] for i in test_index]
         Y_test  = labels[test_index]
-        model.fit(X_train, Y_train)
         print 'Run # '+str(run)
-        _, predictions = model.predict(X_test) #Aqui tuve que hacer algo tricky ya que me devuelve 2 predict y predict_proba? 
+        if len(parameters) > 0: 
+            model.fit(X_train, Y_train, **parameters)
+        else: 
+            model.fit(bags, labels)
+        predictions = model.predict(X_test)           
+        if (isinstance(predictions, tuple)):
+            predictions = predictions[0]
+        print predictions
         accuracie = np.average(Y_test.T == np.sign(predictions)) 
         results_accuracie.append(100 * accuracie)
         auc_score = roc_auc_score(Y_test,predictions)  
@@ -44,11 +43,5 @@ def mil_cross_val(bags,labels,model,folds):
         print predictions 
         print 'real'
         run = run+1
-        
     #modify below to Return AUC
     return np.mean(results_accuracie), results_accuracie, results_auc, np.mean(results_auc)
-
-
-
-    
-    

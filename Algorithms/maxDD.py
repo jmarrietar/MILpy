@@ -101,5 +101,5 @@ class maxDD(object):
         	
         outT=outT.reshape(len(outT),1)
         predicted = self._model.predict(outT)
-        return outT, predicted
+        return predicted, outT
         

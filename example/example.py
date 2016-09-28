@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Aug 20 23:17:10 2016
+
+Hold out evaluation is performed in this example with differents MIL Algorithms. 
 
 @author: josemiguelarrieta
 """
@@ -13,7 +14,6 @@ import numpy as np
 from sklearn import cross_validation
 from sklearn import metrics
 from data import load_data
-from MILpy.functions.mil_cross_val import mil_cross_val
 
 #Import Algorithms 
 from MILpy.Algorithms.simpleMIL import simpleMIL
@@ -24,40 +24,22 @@ from MILpy.Algorithms.EMDD import EMDD
 from MILpy.Algorithms.MILES import MILES
 from MILpy.Algorithms.BOW import BOW
 
+"""
+Note: There is an Issue with regars musk1_original and EMDD and maxDD.
+"""
+
 #Load Data 
 bags,labels,X = load_data('musk1_scaled')  #Musk1 Escalado
-#bags,labels,X = load_data('musk1_original')  #Musk1 Original
+#bags,labels,X = load_data('musk1_original')  #Musk1 Original  ALGO PASA CON ESTA EN EMDD Y MAXDD
 #bags,labels,X = load_data('data_gauss')  #Gaussian data
-#bags,labels,X = load_data('fox_original')  #Musk1 Original
+#bags,labels,X = load_data('fox_original')  #Fox Original
+#bags,labels,X = load_data('fox_scaled')    #Fox Escalado
 
-
-## DRAFT 
-bow_classifier = BOW() 
-
-cknn_classifier = CKNN()   #Aqui tienes un problema con los Que resiven parametros
-
-maxdd_classifier = maxDD() 
-
-emdd_classifier = EMDD() 
-
-#En este me funciono maxDD porque no tiene problem con parametros 
-mil_cross_val(bags=bags,labels=labels, model=emdd_classifier, folds=10)
-
-parameters = 
-
-tel = {'references': 3, 'citers': 5}
-
-tel = {'type': 'max'}
-
-parameters = {'k':100,'covar_type':'diag','n_iter':20}
-
-##
 seed = 66
 #seed = 70
 #Split Data
 #seed= 90
 train_bags, test_bags, train_labels, test_labels = cross_validation.train_test_split(bags, labels, test_size=0.1, random_state=seed)
-
 
                             ################
                             #Bags Of Words #
@@ -69,13 +51,6 @@ accuracie = np.average(test_labels.T == np.sign(predictions))
 print '\n Accuracy: %.2f%%' % (100 * accuracie)
 fpr, tpr, thresholds = metrics.roc_curve(test_labels, predictions, pos_label=1.)
 metrics.auc(fpr, tpr)
-
-
-
-
-#scores = cross_validation.cross_val_score(bow, bags, labels, cv=5,scoring='accuracy')
-
-
 
                             #####################
                             #simpleMIL [average]#
@@ -121,15 +96,10 @@ print '\n Accuracy: %.2f%%' % (100 * accuracie)
 fpr, tpr, thresholds = metrics.roc_curve(test_labels, predictions, pos_label=1.)
 metrics.auc(fpr, tpr)
 
-
-
                             #####
                             #CNN#
                             #####
-
-tel = {'references': 3, 'citers': 5}
 cknn_classifier = CKNN() 
-#cknn_classifier.fit(train_bags, train_labels,**tel)
 cknn_classifier.fit(train_bags, train_labels,references = 3, citers = 5)
 predictions = cknn_classifier.predict(test_bags)
 accuracie = np.average(test_labels.T == np.sign(predictions))
@@ -142,7 +112,7 @@ metrics.auc(fpr, tpr)
                             #######
 maxdd_classifier = maxDD() 
 maxdd_classifier.fit(train_bags=train_bags, train_labels=train_labels)  #Train Classifier
-out,predictions = maxdd_classifier.predict(test_bags)
+predictions, out = maxdd_classifier.predict(test_bags)
 accuracie = np.average(test_labels.T == np.sign(predictions))
 print '\n Accuracy: %.2f%%' % (100 * accuracie)
 fpr, tpr, thresholds = metrics.roc_curve(test_labels, out, pos_label=1.)
@@ -153,14 +123,12 @@ metrics.auc(fpr, tpr)
                             ######
 emdd_classifier = EMDD() 
 emdd_classifier.fit(train_bags=train_bags, train_labels=train_labels)  #Train Classifier
-out,predictions = emdd_classifier.predict(test_bags)
+predictions, out = emdd_classifier.predict(test_bags)
 #Metrics
 accuracie = np.average(test_labels.T == np.sign(predictions))
 print '\n Accuracy: %.2f%%' % (100 * accuracie)
 fpr, tpr, thresholds = metrics.roc_curve(test_labels, 1-out, pos_label=1.)
 metrics.auc(fpr, tpr)
-
-
 
                             ##########   
                             #MILBoost#
@@ -176,7 +144,6 @@ milboost_classifier.fit(train_bags, train_labels)
 out = milboost_classifier.predict(test_bags)
 fpr, tpr, thresholds = metrics.roc_curve(test_labels, out, pos_label=1.)
 metrics.auc(fpr, tpr)
-
 
                             #######
                             #MILES#
