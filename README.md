@@ -11,6 +11,7 @@ The toolbox contains algorithms to train and evaluate multiple instance learning
 Stage of Development:
 ---------------------
 ->Pre-Alpha
+
 ->Development still on process
 
 Disclaimer

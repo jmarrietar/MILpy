@@ -2,19 +2,17 @@
 """
 Created on Thu Sep 22 20:09:20 2016
 
+MIL K stratified fold representation
+
 @author: josemiguelarrieta
 """
 
 from sklearn.cross_validation import StratifiedKFold
 from sklearn.metrics import roc_auc_score
 import numpy as np
+import sys
 
-"""
-NOTE: AUX is missing Here. 
-"""
-
-def mil_cross_val(bags,labels,model,folds,parameters={}):
-    
+def mil_cross_val(bags,labels,model,folds,parameters={}):    
     skf = StratifiedKFold(labels.reshape(len(labels)), n_folds=folds)
     results_accuracie = []
     results_auc = []
@@ -24,7 +22,7 @@ def mil_cross_val(bags,labels,model,folds,parameters={}):
         Y_train = labels[train_index]
         X_test  = [bags[i] for i in test_index]
         Y_test  = labels[test_index]
-        print 'Run # '+str(run)
+        sys.stdout.write('Run# '+str(run)+'...')
         if len(parameters) > 0: 
             model.fit(X_train, Y_train, **parameters)
         else: 
@@ -32,16 +30,9 @@ def mil_cross_val(bags,labels,model,folds,parameters={}):
         predictions = model.predict(X_test)           
         if (isinstance(predictions, tuple)):
             predictions = predictions[0]
-        print predictions
         accuracie = np.average(Y_test.T == np.sign(predictions)) 
         results_accuracie.append(100 * accuracie)
         auc_score = roc_auc_score(Y_test,predictions)  
         results_auc.append(100 * auc_score)
-        print 'roc_auc_score'
-        print auc_score
-        print 'predictions' 
-        print predictions 
-        print 'real'
         run = run+1
-    #modify below to Return AUC
-    return np.mean(results_accuracie), results_accuracie, results_auc, np.mean(results_auc)
+    return np.mean(results_accuracie), results_accuracie, np.mean(results_auc), results_auc
