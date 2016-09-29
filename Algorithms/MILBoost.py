@@ -60,7 +60,7 @@ class MILBoost(object):
             this_out=np.array(h['bestsgn']*np.sign(X[:,h['bestfeat']]-h['bestthr']))
         
       
-            xopt = fmin_bfgs(noisyORlossAlphas,1,args=(prev_out,this_out,bagy,Ibag))
+            xopt = fmin_bfgs(noisyORlossAlphas,1,args=(prev_out,this_out,bagy,Ibag),disp=False)
             self._alpha[t]=xopt[0]
             # update output full classifier:
             prev_out = prev_out + self._alpha[t]*this_out;

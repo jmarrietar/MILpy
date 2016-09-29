@@ -16,13 +16,13 @@ def mil_cross_val(bags,labels,model,folds,parameters={}):
     skf = StratifiedKFold(labels.reshape(len(labels)), n_folds=folds)
     results_accuracie = []
     results_auc = []
-    run = 0
+    fold = 0
     for train_index, test_index in skf:
         X_train = [bags[i] for i in train_index]
         Y_train = labels[train_index]
         X_test  = [bags[i] for i in test_index]
         Y_test  = labels[test_index]
-        sys.stdout.write('Run# '+str(run)+'...')
+        sys.stdout.write('Fold# '+str(fold)+'...')
         if len(parameters) > 0: 
             model.fit(X_train, Y_train, **parameters)
         else: 
@@ -34,5 +34,5 @@ def mil_cross_val(bags,labels,model,folds,parameters={}):
         results_accuracie.append(100 * accuracie)
         auc_score = roc_auc_score(Y_test,predictions)  
         results_auc.append(100 * auc_score)
-        run = run+1
+        fold = fold+1
     return np.mean(results_accuracie), results_accuracie, np.mean(results_auc), results_auc
