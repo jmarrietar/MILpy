@@ -44,7 +44,7 @@ accuracie, results_accuracie, auc,results_auc  = mil_cross_val(bags=bags,labels=
 SMILa = simpleMIL()
 parameters_smil = {'type': 'max'}
 #En este me funciono maxDD porque no tiene problem con parametros 
-accuracie, results_accuracie, auc,results_auc  = mil_cross_val(bags=bags,labels=labels, model=SMILa, folds=10,parameters=parameters_smil)
+accuracie, results_accuracie, auc,results_auc,elapsed  = mil_cross_val(bags=bags,labels=labels, model=SMILa, folds=10,parameters=parameters_smil,timer=True)
 
 parameters_smil = {'type': 'min'}
 #En este me funciono maxDD porque no tiene problem con parametros 

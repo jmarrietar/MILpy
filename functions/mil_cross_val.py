@@ -11,8 +11,10 @@ from sklearn.cross_validation import StratifiedKFold
 from sklearn.metrics import roc_auc_score
 import numpy as np
 import sys
+import timeit
 
-def mil_cross_val(bags,labels,model,folds,parameters={}):    
+def mil_cross_val(bags,labels,model,folds,parameters={},timer=False):  
+    start_time = timeit.default_timer()
     skf = StratifiedKFold(labels.reshape(len(labels)), n_folds=folds)
     results_accuracie = []
     results_auc = []
@@ -35,4 +37,9 @@ def mil_cross_val(bags,labels,model,folds,parameters={}):
         auc_score = roc_auc_score(Y_test,predictions)  
         results_auc.append(100 * auc_score)
         fold = fold+1
-    return np.mean(results_accuracie), results_accuracie, np.mean(results_auc), results_auc
+    elapsed = timeit.default_timer() - start_time
+        
+    if timer==True:
+        return np.mean(results_accuracie), results_accuracie, np.mean(results_auc), results_auc, elapsed
+    else:
+        return np.mean(results_accuracie), results_accuracie, np.mean(results_auc), results_auc
