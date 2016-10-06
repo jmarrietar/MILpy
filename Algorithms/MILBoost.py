@@ -11,20 +11,19 @@ Universidad Nacional de Colombia - Sede Medellín
 """
 
 import numpy as np
-from scipy.optimize import fmin_bfgs   
-from noisyORlossWeights import noisyORlossWeights
-from noisyORlossAlphas import noisyORlossAlphas
-from traindecstump import traindecstump
-
+from scipy.optimize import fmin_bfgs
+from MILpy.functions.noisyORlossWeights import noisyORlossWeights
+from MILpy.functions.noisyORlossAlphas import noisyORlossAlphas
+from MILpy.functions.traindecstump import traindecstump
 
 class MILBoost(object):
     
-    def _init_(self):
+    def __init__(self):
         self._alpha = None
         self._H = None 
         self._T = None
         
-    def fit(self,train_bags,train_labels, errtol = 1e-15,T=100):
+    def fit(self,train_bags,train_labels, errtol = 1e-15,T=100,**kwargs):
         """
         @param train_bags : a sequence of n bags; each bag is an m-by-k array-like
         object containing m instances with k features
@@ -61,7 +60,7 @@ class MILBoost(object):
             this_out=np.array(h['bestsgn']*np.sign(X[:,h['bestfeat']]-h['bestthr']))
         
       
-            xopt = fmin_bfgs(noisyORlossAlphas,1,args=(prev_out,this_out,bagy,Ibag))
+            xopt = fmin_bfgs(noisyORlossAlphas,1,args=(prev_out,this_out,bagy,Ibag),disp=False)
             self._alpha[t]=xopt[0]
             # update output full classifier:
             prev_out = prev_out + self._alpha[t]*this_out;

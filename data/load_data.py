@@ -32,17 +32,17 @@ def load_data(data):
     bag_g = loadmat(filename_bag)
     labels = loadmat(filename_labels)
     try: 
-        Bag=bag_g['Bag2']
+        Bag = bag_g['Bag2']
     except KeyError: 
-        Bag=bag_g['Bag']
-    labels=labels['bagI']
-    X=X_g['X']
-    Bag=np.squeeze(Bag-1)
-    nrobags=max(Bag+1)
-    bags=[]
+        Bag = bag_g['Bag']
+    labels = labels['bagI']
+    X = X_g['X']
+    Bag = np.squeeze(Bag-1)
+    nrobags = max(Bag+1)
+    bags = []
     for i in range(0,nrobags): 
-        index= np.where( Bag == i )
-        bag=X[index]
+        index = np.where( Bag == i )
+        bag = X[index]
         bags.append(bag)
     return bags,labels,X
 

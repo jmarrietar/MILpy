@@ -14,8 +14,8 @@ Copyright: A.R. Jose, jmarrietar@unal.edu.co
 Departamento de Ciencias de la Computación y de la Decisión
 Universidad Nacional de Colombia - Sede Medellín
 """
-from bagprob import bagprob
-from maxdd2 import maxdd
+from MILpy.functions.bagprob import bagprob
+from MILpy.functions.maxdd2 import maxdd
 import numpy as np
 from numpy import inf
 from sklearn.linear_model import LogisticRegression
@@ -23,7 +23,7 @@ from sklearn.linear_model import LogisticRegression
 class maxDD(object):
     
     
-    def _init_(self):
+    def __init__(self):
         self._spoints = None
         self._epochs = None
         self._frac = None
@@ -33,7 +33,7 @@ class maxDD(object):
         self._model = None
         
         
-    def fit(self,train_bags,train_labels,spoints = 10,epochs = np.array([4,4]),frac = 1,tol=[1e-5,1e-5,1e-7,1e-7]): 
+    def fit(self,train_bags,train_labels,spoints = 10,epochs = np.array([4,4]),frac = 1,tol=[1e-5,1e-5,1e-7,1e-7],**kwargs):
         """
         @param train_bags : a sequence of n bags; each bag is an m-by-k array-like
                       object containing m instances with k features
@@ -52,15 +52,17 @@ class maxDD(object):
             pbags.append(train_bags[indice])
         _,dim = pbags[0].shape
 
-        #Poner la Condicion de if spoints is Empty Coger Todos
+        #Missing condition If Spoints Empty choose all.
 
-        #PENDING: ADD MORE CONDITIONS IF IT FAILS 
+        #PENDING: ADD MORE CONDITIONS IF IT FAILS
+        
         tmp = np.vstack(pbags)
         I = np.random.permutation(len(tmp))
-        #PONER AQUI TODAS LAS CONDICIONALES DE SPOINTS 
+      
+        #Missing Spoints conditionals
         spoints = tmp[I[0:spoints]]
 
-        #PONER IF DE LAS SCALES
+        #Missing scales conditionals
         scales = 0.1*np.ones(dim)
         epochs = epochs*dim
 
@@ -99,5 +101,5 @@ class maxDD(object):
         	
         outT=outT.reshape(len(outT),1)
         predicted = self._model.predict(outT)
-        return outT, predicted
+        return predicted, outT
         

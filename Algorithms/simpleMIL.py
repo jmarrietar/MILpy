@@ -14,17 +14,17 @@ from sklearn import svm
 class simpleMIL(object):
     
     
-    def _init_(self):
+    def __init__(self):
         self._model = None
         self._type = None
 
-    def fit(self,train_bags,train_labels,type): 
+    def fit(self,train_bags,train_labels,**kwargs):
         """
         @param train_bags : a sequence of n bags; each bag is an m-by-k array-like
                       object containing m instances with k features
         @param train_labels : an array-like object of length n containing -1/+1 labels
         """        
-        self._type = type
+        self._type = kwargs['type']
         if self._type == 'average':
             bag_mean = np.asarray([np.mean(bag, axis=0) for bag in train_bags])
             bag_modified = bag_mean

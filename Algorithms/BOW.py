@@ -7,21 +7,20 @@ Departamento de Ciencias de la Computación y de la Decisión
 Universidad Nacional de Colombia - Sede Medellín
 """
 
-import os
-os.chdir('/Users/josemiguelarrieta/Documents/MILpy')
+import sys,os
 import numpy as np
 from sklearn.mixture import GMM
 from sklearn.linear_model import LogisticRegression
-from Algorithms import MIL2SIL
+from MILpy.functions.MIL2SIL import MIL2SIL
 
-class bow(object):
+class BOW(object):
     
     
     def __init__(self):
         self._logistic = None
         self._gauss_mix_model = None
     
-    def fit(self,train_bags,train_labels,k,covar_type = 'diag',n_iter = 20):
+    def fit(self,train_bags,train_labels,**kwargs):
         """
         @param train_bags : a sequence of n bags; each bag is an m-by-k array-like
                       object containing m instances with k features
@@ -31,6 +30,9 @@ class bow(object):
                  
         @param covar_type  : Type of covariance matrix (default = 'diag')        
         """
+        k = kwargs['k']
+        covar_type = kwargs['covar_type']
+        n_iter = kwargs['n_iter']
         X, Y = MIL2SIL(train_bags,train_labels)
         self._gauss_mix_model= GMM(n_components=k,covariance_type=covar_type, init_params='wc', n_iter=n_iter)
         self._gauss_mix_model.fit(X)
@@ -53,7 +55,7 @@ class bow(object):
         for i in range (0,n):
             sil_bag, _= MIL2SIL(test_bags[i],[0])
             out_test = self._gauss_mix_model.predict_proba(sil_bag)
-            out_test= np.mean(out_test,axis=0)
+            out_test = np.mean(out_test,axis=0)
             bags_out_test.append(out_test.reshape(1,len(out_test)))
 
         bags_out_test = np.vstack(bags_out_test)

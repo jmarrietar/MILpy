@@ -15,15 +15,16 @@ Copyright: A.R. Jose, jmarrietar@unal.edu.co
 Departamento de Ciencias de la Computación y de la Decisión
 Universidad Nacional de Colombia - Sede Medellín
 """
+import sys,os
 import numpy as np
 from numpy import inf
-from maxdd2 import maxdd
-from log_DD import log_DD
+from MILpy.functions.maxdd2 import maxdd
+from MILpy.functions.log_DD import log_DD
 from sklearn.linear_model import LogisticRegression
 
 class EMDD(object):
     
-    def _init_(self):
+    def __init__(self):
         self._spoints = None
         self._epochs = None
         self._frac = None
@@ -131,7 +132,7 @@ class EMDD(object):
             outT[i],_ = log_DD(self._maxConcept,[test_bags[i]],[1])
         outT = outT.reshape(len(outT),1)
         predicted = self._model.predict(outT)
-        return outT, predicted
+        return predicted, outT
     
     
     

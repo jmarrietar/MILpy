@@ -3,7 +3,6 @@ Implements Citation-KNN
 """
 import numpy as np
 import scipy.spatial.distance as dist
-import inspect
 
 
 class CKNN(object):
@@ -18,16 +17,18 @@ class CKNN(object):
         self._full_bags = None
         self._DM = None
 
-    def fit(self, bags, y):
+    def fit(self, train_bags, train_labels, **kwargs):
         """
         @param bags : a sequence of n bags; each bag is an m-by-k array-like
                       object containing m instances with k features
         @param y : an array-like object of length n containing -1/+1 labels
         """
-        self._bags = bags
-        self._labels=y
+        self._bags = train_bags
+        self._labels = train_labels
+        self._R = kwargs['references']
+        self._C = kwargs['citers']
 
-    def predict(self, Testbags,R,C):
+    def predict(self, Testbags):
         """
         @param bags : a sequence of n bags; each bag is an m-by-k array-like
                       object containing m instances with k features
@@ -44,13 +45,13 @@ class CKNN(object):
         self._DM = self.DistanceMatrix(full_bags)
         
         for num in range(len(self._bags),len(full_bags) ):
-            number=num
-            REFERENCES= self._DM[number,0:R]
-            CiteMatrix=self._DM[:,0:C]
-            CITERS,j=np.where(CiteMatrix == number)
+            number = num
+            REFERENCES = self._DM[number,0:self._R]
+            CiteMatrix =self._DM[:,0:self._C]
+            CITERS,j = np.where(CiteMatrix == number)
             
-            LabelsTrainCiters=self._labels[CITERS[CITERS<len(train_bags)]]
-            LabelsTrainRef=self._labels[REFERENCES[REFERENCES<len(train_bags)]]
+            LabelsTrainCiters = self._labels[CITERS[CITERS<len(train_bags)]]
+            LabelsTrainRef = self._labels[REFERENCES[REFERENCES<len(train_bags)]]
             
             Rp = np.count_nonzero(LabelsTrainRef == 1)
             Rn = np.count_nonzero(LabelsTrainRef == 0)
@@ -76,8 +77,7 @@ class CKNN(object):
             #Hallar la distancia Hausdorr de Todas las bolsas con todas
                 for i in range(0, len(bags)):
                     BagDistances[i] = _min_hau_bag(bags[i],bag)
-                references_bag_={}
-                references_bag=sorted(BagDistances.items(), key=lambda x: x[1]) #Ordeno las bolsas referentes de la Bolsa seleccionada
+                references_bag = sorted(BagDistances.items(), key=lambda x: x[1]) #Ordeno las bolsas referentes de la Bolsa seleccionada
                 REF_Bag_p = []
                 for j in range(0, len(references_bag)):
                     REF_Bag_p.append(references_bag[j][0])
