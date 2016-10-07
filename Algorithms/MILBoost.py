@@ -103,4 +103,4 @@ class MILBoost(object):
         for i in range (0,B-1):
             out[i]=1-np.prod([1-np.asarray(pij[IbagT[i]])])
         
-        return out
+        return out 

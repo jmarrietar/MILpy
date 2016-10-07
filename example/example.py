@@ -14,6 +14,8 @@ import numpy as np
 from sklearn import cross_validation
 from sklearn import metrics
 from data import load_data
+from sklearn.utils import shuffle
+import random as rand
 
 #Import Algorithms 
 from MILpy.Algorithms.simpleMIL import simpleMIL
@@ -29,23 +31,28 @@ Note: There is an Issue with regars musk1_original and EMDD and maxDD.
 """
 
 #Load Data 
-bags,labels,X = load_data('musk1_scaled')  #Musk1 Escalado
-#bags,labels,X = load_data('musk1_original')  #Musk1 Original  ALGO PASA CON ESTA EN EMDD Y MAXDD
-#bags,labels,X = load_data('data_gauss')  #Gaussian data
-#bags,labels,X = load_data('fox_original')  #Fox Original
-#bags,labels,X = load_data('fox_scaled')    #Fox Escalado
+#bags,labels,_ = load_data('musk1_scaled')  #Musk1 Escalado
+#bags,labels,_ = load_data('musk1_original')  #Musk1 Original  ALGO PASA CON ESTA EN EMDD Y MAXDD
+bags,labels,_ = load_data('data_gauss')  #Gaussian data
+#bags,labels,_ = load_data('fox_original')  #Fox Original
+#bags,labels,_ = load_data('fox_scaled')    #Fox Escalado
 
 seed = 66
 #seed = 70
 #Split Data
 #seed= 90
+
+#Shuffle Data
+bags,labels = shuffle(bags, labels, random_state=rand.randint(0, 100))
+
 train_bags, test_bags, train_labels, test_labels = cross_validation.train_test_split(bags, labels, test_size=0.1, random_state=seed)
 
                             ################
                             #Bags Of Words #
                             ################
 bow_classifier = BOW() 
-bow_classifier.fit(train_bags, train_labels,k=100,covar_type = 'diag',n_iter = 20)
+#bow_classifier.fit(train_bags, train_labels,k=100,covar_type = 'diag',n_iter = 20)
+bow_classifier.fit(train_bags, train_labels,k=10,covar_type = 'diag',n_iter = 20)
 predictions = bow_classifier.predict(test_bags)
 accuracie = np.average(test_labels.T == np.sign(predictions))
 print '\n Accuracy: %.2f%%' % (100 * accuracie)
@@ -135,7 +142,7 @@ metrics.auc(fpr, tpr)
                             ##########
 #Nota Importante:  Solo Funciona Con musk1 original. 
 #Load Data 
-bags,labels,X = load_data('musk1_original')  #Musk1 Original
+bags,labels,_ = load_data('musk1_original')  #Musk1 Original
 seed = 90
 train_bags, test_bags, train_labels, test_labels = cross_validation.train_test_split(bags, labels, test_size=0.1, random_state=seed)
 
@@ -148,7 +155,7 @@ metrics.auc(fpr, tpr)
                             #######
                             #MILES#
                             #######
-bags,labels,X = load_data('data_gauss')  #Gaussian data
+bags,labels,_ = load_data('data_gauss')  #Gaussian data
 seed = 66
 train_bags, test_bags, train_labels, test_labels = cross_validation.train_test_split(bags, labels, test_size=0.1, random_state=seed)
 
