@@ -9,7 +9,7 @@ Universidad Nacional de Colombia - Sede Medellín
 
 import sys,os
 import numpy as np
-from sklearn.mixture import GMM
+from sklearn.mixture import GaussianMixture
 from sklearn.linear_model import LogisticRegression
 from MILpy.functions.MIL2SIL import MIL2SIL
 
@@ -34,7 +34,7 @@ class BOW(object):
         covar_type = kwargs['covar_type']
         n_iter = kwargs['n_iter']
         X, Y = MIL2SIL(train_bags,train_labels)
-        self._gauss_mix_model= GMM(n_components=k,covariance_type=covar_type, init_params='wc', n_iter=n_iter)
+        self._gauss_mix_model = GaussianMixture(n_components=k, covariance_type=covar_type, max_iter=n_iter)
         self._gauss_mix_model.fit(X)
         out_hist = self._gauss_mix_model.predict_proba(X)
         

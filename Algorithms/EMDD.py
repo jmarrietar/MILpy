@@ -4,11 +4,11 @@
 Implements Expectation Maximization Maximum Diverse Density
 
 DESCRIPTION
- Expectation Maximization Maximum Diverse Density This implementation is
- completely inspired by MATLAB Udelft MIL toolbox by D.M.J. Tax 
- Use the Expectation Maximization version of the Maximum Diverse
- Density. It is an iterative EM algorithm, requiring a sensible
- initialisation. 
+Expectation Maximization Maximum Diverse Density This implementation is
+completely inspired by MATLAB Udelft MIL toolbox by D.M.J. Tax 
+Use the Expectation Maximization version of the Maximum Diverse
+Density. It is an iterative EM algorithm, requiring a sensible
+initialisation. 
 
 
 Copyright: A.R. Jose, jmarrietar@unal.edu.co
@@ -67,14 +67,14 @@ class EMDD(object):
         #PONER AQUI TODAS LAS CONDICIONALES DE SPOINTS 
 
         if alf<1:
-            print 'Hacer Algo' #k = max(round(alf*length(I)),1);
+            print('Hacer Algo') #k = max(round(alf*length(I)),1);
         else:
             k = alf
     
         if k>len(startpoint):
-        	k = len(startpoint)
+            k = len(startpoint)
         else:
-        	startpoint = startpoint[I[0:k]]
+            startpoint = startpoint[I[0:k]]
 
         scales = np.matlib.repmat(0.1,k,dim)
         pointlogp = np.matlib.repmat(inf,k,1)
@@ -83,7 +83,7 @@ class EMDD(object):
         for i in range (0,k):
             bestinst = []
             logp1,_ = log_DD( np.concatenate((startpoint[i,:],scales[i,:])),train_bags,bagI)
-             #do a few runs to optimize the concept and scales in an EM fashion:
+            #do a few runs to optimize the concept and scales in an EM fashion:
             for r in range(0,10):
                     # find the best fitting instance per bag [ Los mas cercanos a ese starting point en cada Bolsa]]
                 bestinst = []        

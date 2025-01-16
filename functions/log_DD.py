@@ -11,7 +11,7 @@ from scipy import sparse
 from numpy import inf
 from scipy.optimize import fmin_bfgs   
 import numpy as np
-from bagprob import bagprob
+from MILpy.functions.bagprob import bagprob
 
 def log_DD(*args):
     #Parameters

@@ -13,7 +13,7 @@ from numpy import inf
 from scipy.optimize import fmin_bfgs   
 import numpy as np
 
-from log_DD import log_DD
+from MILpy.functions.log_DD import log_DD
 
 def mil_lnsrch(*args):
 
