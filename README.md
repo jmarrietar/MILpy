@@ -4,7 +4,7 @@ MILpy: Multiple-Instance Learning Python Toolbox
 by Jose Arrieta (<jmarrietar@unal.edu.co>)
    Carlos Mera (<camerab@unal.edu.co>)
 
-Updated by GrunCrow - Alba Márquez Rodríguez (ai.gruncrow@gmail.com)
+Updated by [GrunCrow - Alba Márquez Rodríguez](https://github.com/GrunCrow) (ai.gruncrow@gmail.com)
 
 Overview
 --------
