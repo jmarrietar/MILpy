@@ -7,7 +7,7 @@ MIL K stratified fold representation
 @author: josemiguelarrieta
 """
 
-from sklearn.cross_validation import StratifiedKFold
+from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import roc_auc_score
 import numpy as np
 import sys
@@ -15,7 +15,7 @@ import timeit
 
 def mil_cross_val(bags,labels,model,folds,parameters={},timer=False):  
     start_time = timeit.default_timer()
-    skf = StratifiedKFold(labels.reshape(len(labels)), n_folds=folds)
+    skf = StratifiedKFold(n_splits=folds).split(bags, labels.reshape(len(labels)))
     results_accuracie = []
     results_auc = []
     fold = 0

@@ -24,9 +24,9 @@ def load_data(data):
         X_g = loadmat('data/musk1_unscaled/X_musk_original.mat')
     else:
         file = data
-        filename_bag = 'data/'+file+'/Bag2.mat'
-        filename_labels = 'data/'+file+'/bagI.mat'
-        X_g = loadmat('data/'+file+'/X.mat')
+        filename_bag = 'MILpy/data/'+file+'/Bag2.mat'
+        filename_labels = 'MILpy/data/'+file+'/bagI.mat'
+        X_g = loadmat('MILpy/data/'+file+'/X.mat')
     
         
     bag_g = loadmat(filename_bag)

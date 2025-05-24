@@ -40,7 +40,7 @@ class simpleMIL(object):
             bag_min = np.asarray([np.amin(bag,axis=0) for bag in train_bags])
             bag_modified = bag_min
         else:
-            print 'No exist'
+            print('No exist')
         self._model = svm.SVC()
         self._model.fit(bag_modified, train_labels) 
         
@@ -66,6 +66,6 @@ class simpleMIL(object):
             bag_min_test = np.asarray([np.amin(bag,axis=0) for bag in test_bags])
             bag_modified_test = bag_min_test
         else:
-            print 'No exist'
+            print('No exist')
         predictions = self._model.predict(bag_modified_test)
         return predictions

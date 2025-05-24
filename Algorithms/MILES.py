@@ -58,14 +58,14 @@ class MILES(object):
         y=2*baglabT-1
         C=1 #Esto es un Parametro que se debe pasar.
         Cweights = np.matlib.repmat(float(C),nrbags,1)
-         # reweigh to cope with class imbalance:
+        # reweigh to cope with class imbalance:
         Ipos = [y==+1];
         Ineg = [y==-1];
         Cweights[Ipos]=np.divide(Cweights[Ipos],float(np.count_nonzero(y == 1)))
         Cweights[Ineg]=np.divide(Cweights[Ineg],float(np.count_nonzero(y == -1)))
             
         f=np.squeeze(np.vstack((np.divide(np.ones((2*nrcon,1)), float((2*nrcon))),
-                     Cweights,
+                    Cweights,
                         0)))
                         
         A = -np.hstack((np.multiply(np.matlib.repmat(y,1,nrcon),m),
@@ -77,13 +77,13 @@ class MILES(object):
         
         #lb=np.squeeze(np.vstack((np.zeros((2*nrcon+nrbags,1)),-inf)))
         #ub=np.squeeze(np.matlib.repmat(inf,2*nrcon+nrbags+1,1))
-             
+
         res = linprog(f, A_ub=A, b_ub=b, bounds=([0, None]),options=dict(bland=True))
         u = res['x']
         v = u[0:nrcon]-u[nrcon:2*nrcon]
         I = np.where(abs(v)>1e-9)
         if len(I) == 0:
-            print 'All weights are zero.'
+            print('All weights are zero.')
             I = 1; 
         
         w = v[I]
@@ -105,7 +105,7 @@ class MILES(object):
         
         n = len(bagTest)
         out = np.zeros((n,1))
-         
+        
         for i in range (0,n):
             d=dd_kernel(bagTest[i],Xtest,self._ktype,self._P)
             out[i]=np.amax(d[:,self._I], axis=0)*self._w.T + self._w0
